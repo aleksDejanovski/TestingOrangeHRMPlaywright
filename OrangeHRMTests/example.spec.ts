@@ -1,4 +1,4 @@
-import { test, expect } from "./Pages/base.ts";
+import { test, expect } from "./Pages/base";
 import LoginPage from "./Pages/LoginPage";
 
 test("Login to Orange HRM using POM", async ({ loginPage }) => {
