@@ -1,14 +1,23 @@
-import { Page } from "@playwright/test";
+import { Page, Locator } from "@playwright/test";
 
 export default class LoginPage {
-  constructor(public page: Page) {}
+  readonly usernameInput: Locator;
+  readonly passwordInput: Locator;
+  readonly loginButton: Locator;
 
-  async FillLoginForm(Username: string, Pass: string) {
-    await this.page.getByPlaceholder("Username").fill(Username);
-    await this.page.getByPlaceholder("Password").fill(Pass);
-    await this.page.getByRole("button", { name: "Login" }).click();
+  constructor(public readonly page: Page) {
+    this.usernameInput = page.getByPlaceholder("Username");
+    this.passwordInput = page.getByPlaceholder("Password");
+    this.loginButton = page.getByRole("button", { name: "Login" });
   }
-  async GoTo(url: string) {
+
+  async fillLoginForm(username: string, pass: string) {
+    await this.usernameInput.fill(username);
+    await this.passwordInput.fill(pass);
+    await this.loginButton.click();
+  }
+
+  async goTo(url: string) {
     await this.page.goto(url);
   }
 }
