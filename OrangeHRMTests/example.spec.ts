@@ -23,4 +23,22 @@ test("Add new admin", async ({ loginPage, dashboardPage, adminPage }) => {
   await expect(adminPage.userManagementHeader).toBeVisible();
   await adminPage.clickAddNewAdmin();
   await expect(adminPage.addNewUserHeading).toBeVisible();
+  await adminPage.SetUpAdminRole();
+  await adminPage.SetUpEmployeeName("alekso");
+  await adminPage.ClickSave();
+});
+
+test("Add new job title", async ({ loginPage, dashboardPage, adminPage }) => {
+  await loginPage.goTo("/web/index.php/auth/login");
+  await loginPage.fillLoginForm("Admin", "admin123");
+  await expect(dashboardPage.dashboardHeader).toBeVisible();
+  await dashboardPage.clickAdminButton();
+  await expect(adminPage.userManagementHeader).toBeVisible();
+  await adminPage.ClickJobMenu();
+  await adminPage.ClickJobTitles();
+  await expect(adminPage.jobTitlesHeading).toBeVisible();
+  await adminPage.ClickAddNew();
+  await expect(adminPage.addJobTitleHeading).toBeVisible();
+  await adminPage.CreateNewJob("aleksjob", "new test job title");
+  await expect(adminPage.table).toContainText("new test job title");
 });

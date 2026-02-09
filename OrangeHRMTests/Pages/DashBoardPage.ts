@@ -6,7 +6,7 @@ export default class DashBoardPage {
 
   constructor(public page: Page) {
     this.dashboardHeader = page.getByRole("heading", { name: "Dashboard" });
-    this.adminButton = page.getByText("Admin");
+    this.adminButton = page.getByRole("link", { name: "Admin" });
   }
 
   async testt(Username: string, Pass: string) {
