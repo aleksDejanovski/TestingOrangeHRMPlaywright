@@ -16,6 +16,12 @@ export default class AdminPage {
   readonly addUsername: Locator;
   readonly description: Locator;
   readonly table: Locator;
+  readonly qualificationButton: Locator;
+  readonly skillsButton: Locator;
+  readonly skillsPage: Locator;
+  readonly addSkillsHeding: Locator;
+  readonly inputNewName: Locator;
+  readonly skillsTable: Locator;
 
   constructor(public page: Page) {
     this.dashboardHeader = page.getByRole("heading", { name: "Dashboard" });
@@ -37,6 +43,12 @@ export default class AdminPage {
     this.addUsername = page.locator("input.oxd-input").last();
     this.description = page.getByPlaceholder("Type description here");
     this.table = page.locator(".oxd-table");
+    this.qualificationButton = page.getByText("Qualifications ");
+    this.skillsButton = page.getByText("Skills");
+    this.skillsPage = page.getByRole("heading", { name: "Skills" });
+    this.addSkillsHeding = page.getByRole("heading", { name: "Add Skill" });
+    this.inputNewName = page.locator("form input");
+    this.skillsTable = page.locator(".oxd-table-body");
   }
 
   async clickAddNewAdmin() {
@@ -72,6 +84,17 @@ export default class AdminPage {
   async CreateNewJob(job: string, description: string) {
     await this.addUsername.fill(job + Math.floor(Math.random() * 10000));
     await this.description.fill(description);
+    await this.save.click();
+    await this.page.waitForTimeout(2000);
+  }
+
+  async OpenSkills() {
+    await this.qualificationButton.click();
+    await this.skillsButton.click();
+  }
+
+  async AddNewName(name: string) {
+    await this.inputNewName.fill(name + Math.floor(Math.random() * 10000));
     await this.save.click();
     await this.page.waitForTimeout(2000);
   }

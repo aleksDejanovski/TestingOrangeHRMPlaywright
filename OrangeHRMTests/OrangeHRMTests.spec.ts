@@ -2,6 +2,7 @@ import { log } from "node:console";
 import { test, expect } from "./Pages/Base";
 import LoginPage from "./Pages/LoginPage";
 import path from "node:path";
+import { ADDRCONFIG } from "node:dns";
 
 test("Login to Orange HRM using POM", async ({ loginPage, dashboardPage }) => {
   await loginPage.goTo("/web/index.php/auth/login");
@@ -41,4 +42,22 @@ test("Add new job title", async ({ loginPage, dashboardPage, adminPage }) => {
   await expect(adminPage.addJobTitleHeading).toBeVisible();
   await adminPage.CreateNewJob("aleksjob", "new test job title");
   await expect(adminPage.table).toContainText("new test job title");
+});
+
+test("Add new qualification for employees", async ({
+  loginPage,
+  dashboardPage,
+  adminPage,
+}) => {
+  await loginPage.goTo("/web/index.php/auth/login");
+  await loginPage.fillLoginForm("Admin", "admin123");
+  await expect(dashboardPage.dashboardHeader).toBeVisible();
+  await dashboardPage.clickAdminButton();
+  await expect(adminPage.userManagementHeader).toBeVisible();
+  await adminPage.OpenSkills();
+  await expect(adminPage.skillsPage).toBeVisible();
+  await adminPage.clickAddNewAdmin();
+  await expect(adminPage.addSkillsHeding).toBeVisible();
+  await adminPage.AddNewName("testSkill");
+  await expect(adminPage.skillsTable).toContainText("testSkill");
 });
