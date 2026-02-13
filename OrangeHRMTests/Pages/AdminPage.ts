@@ -85,6 +85,7 @@ export default class AdminPage {
     await this.addUsername.fill(job + Math.floor(Math.random() * 10000));
     await this.description.fill(description);
     await this.save.click();
+    await this.page.waitForTimeout(3000);
   }
 
   async OpenSkills() {
