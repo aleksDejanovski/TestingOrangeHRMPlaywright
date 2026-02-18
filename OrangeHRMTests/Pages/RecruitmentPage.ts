@@ -36,6 +36,6 @@ export default class RecruitmentPage {
     await this.lastName.fill(lastName);
     await this.email.fill(email);
     await this.saveButton.click();
-    await this.page.waitForTimeout(3000);
+    await this.page.waitForTimeout(4000);
   }
 }

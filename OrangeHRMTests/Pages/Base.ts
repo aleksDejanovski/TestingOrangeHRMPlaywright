@@ -3,12 +3,14 @@ import LoginPage from "./LoginPage";
 import DashBoardPage from "./DashBoardPage";
 import AdminPage from "./AdminPage";
 import RecruitmentPage from "./RecruitmentPage";
+import PimPage from "./PimPage";
 
 type MyFixtures = {
   loginPage: LoginPage;
   dashboardPage: DashBoardPage;
   adminPage: AdminPage;
   recruitmentPage: RecruitmentPage;
+  pimPage: PimPage;
 };
 
 export const test = Base.extend<MyFixtures>({
@@ -23,7 +25,10 @@ export const test = Base.extend<MyFixtures>({
   },
   recruitmentPage: async ({ page }, use) => {
     await use(new RecruitmentPage(page));
-  }
+  },
+  pimPage: async ({ page }, use) => {
+    await use(new PimPage(page));
+  },
 });
 
 export { expect } from "@playwright/test";
